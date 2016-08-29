@@ -1,6 +1,8 @@
 # roman
 
-# TDD Exercise from https://www.youtube.com/watch?v=7y7KJN5qWic&feature=youtu.be
+# TDD Exercise
+
+see https://www.youtube.com/watch?v=7y7KJN5qWic&feature=youtu.be
 
 The build/test tooling is cloned from the "money example" from the Check tutorial.
 
