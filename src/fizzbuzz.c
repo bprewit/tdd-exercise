@@ -2,5 +2,12 @@
 
 void fizzbuzz(char *dst, int n)
 {
-	sprintf(dst, "%d", n);
+	if((n % 3) == 0)
+	{
+		sprintf(dst, "fizz");
+	}
+	else
+	{
+		sprintf(dst, "%d", n);
+	}
 }
