@@ -3,34 +3,39 @@
 #include <check.h>
 #include "../src/fizzbuzz.h"
 
+char *result;
+
+void setup(void)
+{
+	result = calloc((strlen("fizzbuzz") + 1), sizeof(char));
+}
+
+void teardown(void)
+{
+	free(result);
+}
+
 START_TEST(fizzbuzz_returns_number)
 {
-	char *result;
 	result = calloc((strlen("fizzbuzz") + 1), sizeof(char));
 	fizzbuzz(result, 1);
 	ck_assert_str_eq(result, "1");
-	free(result);
 }
 END_TEST
 
 START_TEST(fizzbuzz_returns_two)
 {
-	char *result;
-	result = calloc((strlen("fizzbuzz") + 1), sizeof(char));
 	fizzbuzz(result, 2);
 	ck_assert_str_eq(result, "2");
-	free(result);
 }
 END_TEST
 
 START_TEST(fizzbuzz_returns_fizz)
 {
-	char *result = calloc((strlen("fizzbuzz") + 1), sizeof(char));
 	fizzbuzz(result, 3);
 	ck_assert_str_eq(result, "fizz");
 	fizzbuzz(result, 6);
 	ck_assert_str_eq(result, "fizz");
-	free(result);
 }
 END_TEST
 
@@ -40,17 +45,14 @@ Suite *fizzbuzz_suite(void)
 
 	s = suite_create("FizzBuzz");
 
-	TCase *tc_001 = tcase_create("FizzBuzz returns number");
-	tcase_add_test(tc_001, fizzbuzz_returns_number);
-	suite_add_tcase(s, tc_001);
+	TCase *tc_core = tcase_create("FizzBuzz Core");
+	tcase_add_unchecked_fixture(tc_core, setup, teardown);
 
-	TCase *tc_002 = tcase_create("FizzBuzz returns two");
-	tcase_add_test(tc_002, fizzbuzz_returns_two);
-	suite_add_tcase(s, tc_002);
+	tcase_add_test(tc_core, fizzbuzz_returns_number);
+	tcase_add_test(tc_core, fizzbuzz_returns_two);
+	tcase_add_test(tc_core, fizzbuzz_returns_fizz);
 
-	TCase *tc_003 = tcase_create("FizzBuzz returns fizz");
-	tcase_add_test(tc_003, fizzbuzz_returns_fizz);
-	suite_add_tcase(s, tc_003);
+	suite_add_tcase(s, tc_core);
 
 	return(s);
 }
