@@ -6,25 +6,36 @@
 START_TEST(test_fizzbuzz_returns_number)
 {
 	char *result;
-	result = calloc(strlen("fizzbuzz") + 1, sizeof(char));
+	result = calloc((strlen("fizzbuzz") + 1), sizeof(char));
 	fizzbuzz(result, 1);
 	ck_assert_str_eq(result, "1");
+	free(*result);
 }
 END_TEST
 
+START_TEST(test_fizzbuzz_returns_two)
+{
+	char *result;
+	result = calloc((strlen("fizzbuzz") + 1), sizeof(char));
+	fizzbuzz(result, 2);
+	ck_assert_str_eq(result, "2");
+	free(*result);
+}
+END_TEST
 
 Suite *fizzbuzz_suite(void)
 {
 	Suite *s;
-	TCase *tc_core;
 
 	s = suite_create("FizzBuzz");
 
-	/* Core test case */
-	tc_core = tcase_create("Core");
+	TCase *tc_001 = tcase_create("FizzBuzz returns number");
+	tcase_add_test(tc_001, test_fizzbuzz_returns_number);
+	suite_add_tcase(s, tc_001);
 
-	tcase_add_test(tc_core, test_fizzbuzz_returns_number);
-	suite_add_tcase(s, tc_core);
+	TCase *tc_002 = tcase_create("FizzBuzz returns two");
+	tcase_add_test(tc_002, test_fizzbuzz_returns_two);
+	suite_add_tcase(s, tc_002);
 
 	return(s);
 }
@@ -38,7 +49,7 @@ int main (void)
 	s = fizzbuzz_suite();
 	sr = srunner_create(s);
 
-	srunner_run_all(sr, CK_NORMAL);
+	srunner_run_all(sr, CK_VERBOSE);
 	number_failed = srunner_ntests_failed(sr);
 	srunner_free(sr);
 	return (number_failed == 0) ? EXIT_SUCCESS : EXIT_FAILURE;

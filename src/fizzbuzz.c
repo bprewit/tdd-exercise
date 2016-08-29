@@ -2,5 +2,5 @@
 
 void fizzbuzz(char *dst, int n)
 {
-	strcpy(dst, "1");
+	sprintf(dst, "%d", n);
 }
