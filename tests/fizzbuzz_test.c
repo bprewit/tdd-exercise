@@ -48,6 +48,15 @@ START_TEST(fizzbuzz_returns_buzz)
 }
 END_TEST
 
+START_TEST(fizzbuzz_returns_fizzbuzz)
+{
+	fizzbuzz(result, 15);
+	ck_assert_str_eq(result, "fizzbuzz");
+	fizzbuzz(result, 45);
+	ck_assert_str_eq(result, "fizzbuzz");
+}
+END_TEST
+
 Suite *fizzbuzz_suite(void)
 {
 	Suite *s;
@@ -61,6 +70,7 @@ Suite *fizzbuzz_suite(void)
 	tcase_add_test(tc_core, fizzbuzz_returns_two);
 	tcase_add_test(tc_core, fizzbuzz_returns_fizz);
 	tcase_add_test(tc_core, fizzbuzz_returns_buzz);
+	tcase_add_test(tc_core, fizzbuzz_returns_fizzbuzz);
 
 	suite_add_tcase(s, tc_core);
 

@@ -2,7 +2,11 @@
 
 void fizzbuzz(char *dst, int n)
 {
-	if((n % 5) == 0)
+	if((n % 15) == 0)
+	{
+		sprintf(dst, "fizzbuzz");
+	}
+	else if((n % 5) == 0)
 	{
 		sprintf(dst, "buzz");
 	}
